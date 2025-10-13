@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoET TechUtsav 2025</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins", sans-serif; }
+body {
+  background: linear-gradient(120deg, #e0f7fa, #e1f5fe);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+  color: #333;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+  scroll-behavior:smooth;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Sticky Nav */
+nav {
+  position: sticky;
+  top:0;
+  z-index:1000;
+  background:#003b8e;
+  width:100%;
+  text-align:center;
+  padding:10px 0;
+}
+nav a { color:white; margin:0 15px; text-decoration:none; font-weight:600; transition:color 0.3s; }
+nav a:hover { color:#00c6fb; }
+
+/* Header */
+header {
+  width:100%;
+  background:linear-gradient(135deg,#005bea,#00c6fb);
+  color:white;
+  text-align:center;
+  padding:12px 10px;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2);
+}
+header img.logo { width:70px; border-radius:8px; }
+header .logos {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+header h1 { font-size:1.8rem; font-weight:700; letter-spacing:1px; animation:glow 2s ease-in-out infinite alternate; margin-bottom:4px; }
+@keyframes glow { from { text-shadow:0 0 10px #00c6fb,0 0 20px #005bea; } to { text-shadow:0 0 25px #00c6fb,0 0 40px #005bea; } }
+header h2 { font-size:1rem; margin-top:4px; font-weight:600; color:#f5f5f5; }
+
+/* Event Cards */
+.container {
+  width:90%;
+  max-width:1000px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  margin:40px 0;
+}
+.event-card {
+  background:white;
+  border-radius:15px;
+  padding:25px;
+  text-align:center;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  transition:all 0.4s ease, box-shadow 0.3s ease;
+  cursor:pointer;
+  position:relative;
+  animation: fadeInUp 0.6s ease both;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.event-card:hover {
+  background:linear-gradient(135deg,#00c6fb,#005bea);
+  color:white;
+  transform:scale(1.08);
+  box-shadow:0 0 25px rgba(0,198,251,0.8);
+}
+.event-card.registration-free::after {
+  content:"Registration Free";
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:yellow;
+  color:black;
+  padding:3px 8px;
+  border-radius:5px;
+  font-weight:600;
+  font-size:0.8rem;
+}
+
+/* Buttons */
+.toggle-btn {
+  background:linear-gradient(135deg,#00c6fb,#005bea);
+  color:white;
+  border:none;
+  border-radius:30px;
+  padding:15px 40px;
+  font-size:1.2rem;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  margin-bottom:20px;
+}
+.toggle-btn:hover { transform:scale(1.05); box-shadow:0 5px 15px rgba(0,0,0,0.2); }
+
+/* Collapsible Sections */
+.collapsible {
+  width:90%;
+  max-width:1000px;
+  background:#222;
+  color:white;
+  border-radius:10px;
+  overflow:hidden;
+  max-height:0;
+  transition:max-height 0.6s ease-in-out, padding 0.3s ease;
+  margin-bottom:20px;
+}
+.collapsible.active { max-height:2000px; padding:10px 0; }
+.content { padding:20px; }
+.content h2 { text-align:center; color:#00c6fb; margin-bottom:15px; }
+table { width:100%; border-collapse:collapse; color:white; margin-top:10px; }
+table th, table td { border:1px solid #444; padding:10px; text-align:center; opacity:0; transform:translateY(20px); transition:all 0.5s ease; }
+table th { background:#333; }
+.collapsible.active table th, .collapsible.active table td { opacity:1; transform:translateY(0); }
+
+/* Countdown Timer */
+#countdown {
+  background:#003b8e;
+  color:white;
+  font-size:1.1rem;
+  padding:10px 20px;
+  border-radius:20px;
+  margin:10px 0;
+  font-weight:600;
+  display:inline-block;
+  box-shadow:0 0 15px rgba(0,198,251,0.7);
+}
+
+/* Scroll Top Button */
+#topBtn {
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  background:#005bea;
+  color:white;
+  border:none;
+  border-radius:50%;
+  padding:12px 16px;
+  font-size:18px;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+  display:none;
+}
+#topBtn:hover { background:#00c6fb; }
+
+/* Footer */
+footer {
+  background:#003b8e;
+  color:white;
+  text-align:center;
+  padding:15px 0;
+  width:100%;
+  margin-top:30px;
+  font-size:0.95rem;
+}
+footer p:last-child { font-size:0.85rem; color:#a0d8ff; }
+
+/* Responsive */
+@media(max-width:600px){ .event-card { padding:15px; } header h1 { font-size:1.5rem; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#">Home</a>
+  <a href="#timetable">Timetable</a>
+  <a href="#faculty">Faculty</a>
+</nav>
+
+<header>
+  <div class="logos" style="display: flex; justify-content: space-between; align-items: center; width: 95%; margin: auto;">
+    
+    <!-- Left Logo -->
+    <img class="logo left-logo" 
+         src="https://www.napswi.org/conf/images/Centurion_University_logo.png" 
+         alt="CUTM Logo" 
+         style="width: 120px; height: auto; border-radius: 10px;">
+    
+    <div class="header-text" style="text-align: center; flex: 1;">
+      <h1 style="font-size: 2.2rem; font-weight: 700; letter-spacing: 1px; color: white;">SoET TechUtsav 2025</h1>
+      <div id="countdown" style="color: #fff; font-weight: 600;">Loading countdown...</div>
+      <h2 style="font-size: 1.1rem; color: #f5f5f5;">Two Day's Event (24 and 25 Oct)</h2>
+      <p style="font-size:1rem; color:#f5f5f5; font-weight:600; margin-top:5px;">
+        Inaugural Ceremony: 10:00 AM – 11:00 AM (24 Oct)
+      </p>
+    </div>
+
+    <!-- Right Logo -->
+    <img class="logo right-logo" 
+         src="SoET_Logo.jpg" 
+         alt="SoET Logo" 
+         style="width: 120px; height: auto; border-radius: 10px;">
+  </div>
+</header>
+
+
+
+<div class="container">
+  <div class="event-card registration-free" onclick="openForm('https://forms.gle/KbdD9upt6Bxr23a7A')">Hackathon</div>
+  <div class="event-card registration-free" onclick="openForm('https://forms.gle/v8DN82iUPJB8wqAo7')">Mapathon</div>
+  <div class="event-card registration-free" onclick="openForm('https://forms.gle/swW13HZGCN2Ns3Ze7')">Crossword Challenge</div>
+  <div class="event-card" onclick="openForm('https://forms.gle/gD4Px2hZV4nHFd829')">E-Sports</div>
+  <div class="event-card" onclick="openForm('https://forms.gle/UXDLgNb5GvsDt4aMA')">Treasure Hunt</div>
+  <div class="event-card registration-free" onclick="openForm('https://forms.gle/xqf7zQt5kHKC43p28')">Coding Challenge</div>
+  <div class="event-card registration-free" onclick="openForm('https://forms.gle/aLs2nsQFoeurJno78')">UI & UX Competition</div>
+  <div class="event-card registration-free" onclick="openForm('https://forms.gle/38yG82ehFFvqHbM78')">Project Expo</div>
+  <div class="event-card registration-free" onclick="openForm('https://forms.gle/th2sRTvzHpNahufA6')">Digital Painting</div>
+  <div class="event-card registration-free" onclick="openForm('https://forms.gle/xNJ6tnTcpC5npya39')">Cultural Program</div>
+</div>
+
+<button class="toggle-btn" onclick="toggleSection('timetable')">📅 View Event Timetable</button>
+<div class="collapsible" id="timetable">
+  <div class="content">
+    <h2>📅 Event Timetable & Student Organizers</h2>
+<table border="1" style="border-collapse: collapse; width: 100%; text-align: left; font-family: Arial;">
+  <tr style="background-color: #222; color: white;">
+    <th>Event Name</th>
+    <th>Time</th>
+    <th>Venue</th>
+    <th>Student Organizers</th>
+  </tr>
+
+  <!-- 🌞 Day 1 Section -->
+  <tr style="background-color: #00c6fb; color: white; text-align: center; font-weight: bold;">
+    <td colspan="4">DAY 1 EVENTS(24 oct)</td>
+  </tr>
+
+  <tr>
+    <td>Hackathon</td>
+    <td>11:00 AM - 3:00 PM</td>
+    <td>Auditorium</td>
+    <td>
+      Priyanka Sahu – <a href="tel:8247249807" style="color:#00c6fb;">8247249807</a>,
+      Jigar Kumar – <a href="tel:9693004108" style="color:#00c6fb;">9693004108</a>,
+      Shyamal Devdarshan – <a href="tel:9931549301" style="color:#00c6fb;">9931549301</a>, 
+      Kritika Nanda – <a href="tel:9162056061" style="color:#00c6fb;">9162056061</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Mapathon</td>
+    <td>11:00 AM - 3:00 PM</td>
+    <td>Geospatial Lab</td>
+    <td>
+      Anurag Kaushal – <a href="tel:8252404849" style="color:#00c6fb;">8252404849</a>, 
+      Nilesh Kumar – <a href="tel:9939684768" style="color:#00c6fb;">9939684768</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Crossword Challenge</td>
+    <td>11:00 AM - 3:00 PM</td>
+    <td>C-135</td>
+    <td>
+      K. Chandu – <a href="tel:8114345393" style="color:#00c6fb;">8114345393</a>, 
+      Ranjan Kumar – <a href="tel:6287567110" style="color:#00c6fb;">6287567110</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>E-Sports</td>
+    <td>1:30 PM - 5:30 PM</td>
+    <td>Seminar Hall & ST Domain Lab</td>
+    <td>
+      Shivam Kumar Singh – <a href="tel:8877344024" style="color:#00c6fb;">8877344024</a>, 
+      Prince – <a href="tel:9693098856" style="color:#00c6fb;">9693098856</a>, 
+      Warish Khan – <a href="tel:8084823258" style="color:#00c6fb;">8084823258</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Treasure Hunt</td>
+    <td>3:00 PM - 5:30 PM</td>
+    <td>Auditorium</td>
+    <td>
+      Sanoj Kumar – <a href="tel:8809720988" style="color:#00c6fb;">8809720988</a>, 
+      Abhishek Kumar – <a href="tel:8249136407" style="color:#00c6fb;">9508342610</a>
+    </td>
+  </tr>
+
+  <!-- 🌙 Day 2 Section -->
+  <tr style="background-color: #00c6fb; color: white; text-align: center; font-weight: bold;">
+    <td colspan="4">DAY 2 EVENTS  (25 oct )</td>
+  </tr>
+
+  <tr>
+    <td>Coding Challenge</td>
+    <td>9:30 AM - 1:30 PM</td>
+    <td>Software Domain Lab + C135</td>
+    <td>
+      Aditya Kumar – <a href="tel:7463083663" style="color:#00c6fb;">7463083663</a>, 
+      Shantanu – <a href="tel:7368922553" style="color:#00c6fb;">7368922553</a>, 
+      Nitesh – <a href="tel:8709786240" style="color:#00c6fb;">8709786240</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>UI & UX Competition</td>
+    <td>9:30 AM - 1:30 PM</td>
+    <td>Seminar Hall </td>
+    <td>
+      Vikash – <a href="tel:7260035948" style="color:#00c6fb;">7260035948</a>, 
+      Vikash – <a href="tel:9835911029" style="color:#00c6fb;">9835911029</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Project Expo</td>
+    <td>9:30 AM - 1:30 PM</td>
+    <td>Auditorium</td>
+    <td>
+      Shivam Kumar Singh – <a href="tel:8877344024" style="color:#00c6fb;">8877344024</a>, 
+      Ibrahim Alam – <a href="tel:9693062387" style="color:#00c6fb;">9693062387</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Digital Painting</td>
+    <td>2:30 PM - 3:30 PM</td>
+    <td>CRC 2 Lab 2&3</td>
+    <td>
+      Neelakhant Panigrahi – <a href="tel:8249136407" style="color:#00c6fb;">8249136407</a>, 
+      Subhashree Behera – <a href="tel:9692544473" style="color:#00c6fb;">9692544473</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Prizes Distribution</td>
+    <td>3:30 PM - 4:30 PM</td>
+    <td>Auditorium</td>
+    <td>All Student Organizers Team</td>
+  </tr>
+
+  <tr>
+    <td>Cultural Program</td>
+    <td>4:30 PM - 7:00 PM</td>
+    <td>Auditorium</td>
+    <td>
+      Neha Kumari – <a href="tel:6207092380" style="color:#00c6fb;">6207092380</a>,
+      Pragyan Parimita Nayak – <a href="tel:9178535660" style="color:#00c6fb;">9178535660</a>,
+      Amrita Samal – <a href="tel:7847803349" style="color:#00c6fb;">7847803349</a>,
+      Mousumi Mallick – <a href="tel:8260835323" style="color:#00c6fb;">8260835323</a>
+    </td>
+  </tr>
+</table>
+
+  </div>
+</div>
+
+<button class="toggle-btn" onclick="toggleSection('faculty')">🎓 View Faculty Organizers</button>
+<div class="collapsible" id="faculty">
+  <div class="content">
+    
+     <h2>🎓 Faculty Organizers</h2>
+    <table border="1" style="border-collapse:collapse; width:100%; text-align:left;">
+  <tr>
+    <th>Event Name</th>
+    <th>Faculty Organizers</th>
+    <th>Venue</th>
+    <th>Time</th>
+  </tr>
+
+  <!-- 🌞 Day 1 Section -->
+  <tr style="background-color: #00c6fb; color: white; text-align: center; font-weight: bold;">
+    <td colspan="4">DAY 1 EVENTS(24 oct)</td>
+  </tr>
+
+  <tr>
+    <td>Hackathon</td>
+    <td>
+      Dr. Abinash Gaya – <a href="tel:7735363537" style="color:#00c6fb;">7735363537</a>, 
+      Dr. Pragyan Parimita Pradhan – <a href="tel:8763834475" style="color:#00c6fb;">8763834475</a>,
+      Mr. Vasudev Jha – <a href="tel:9334718486" style="color:#00c6fb;">9334718486</a>, 
+    </td>
+    <td>Auditorium</td>
+    <td>11:00 AM - 3:00 PM</td>
+  </tr>
+
+  <tr>
+    <td>Mapathon</td>
+    <td>
+      Dr. Prafulla Kumar Panda – <a href="tel:8917258681" style="color:#00c6fb;">8917258681</a>,
+      Dr. Madan Mohan Rout – <a href="tel:9458353791" style="color:#00c6fb;">9458353791</a>
+    </td>
+    <td>Geospatial Lab</td>
+    <td>11:00 AM - 3:00 PM</td>
+  </tr>
+
+  <tr>
+    <td>Crossword Challenge</td>
+    <td>
+      Dr. MD. Anis Ansari  – <a href="tel:9621204918" style="color:#00c6fb;">9621204918</a>
+    </td>
+    <td>C-135</td>
+    <td>11:00 AM - 3:00 PM</td>
+  </tr>
+
+  <tr>
+    <td>E-Sports</td>
+    <td>
+      Mr. Jagannath Padhy – <a href="tel:8917399363" style="color:#00c6fb;">8917399363</a>, 
+      Mr. Sambhav Barik – <a href="tel:8114643184" style="color:#00c6fb;">8114643184</a>
+    </td>
+    <td>Seminar Hall & ST Domain Lab</td>
+    <td>3:00 PM - 5:30 PM</td>
+  </tr>
+
+  <tr>
+    <td>Treasure Hunt</td>
+    <td>
+      Mr. Dinesh Kumar – <a href="tel:8527410963" style="color:#00c6fb;">8527410963</a>, 
+      Mrs. Sagarika Dash – <a href="tel:7008242995" style="color:#00c6fb;">7008242995</a>, 
+      Mrs. Pranita Mohapatro – <a href="tel:7735789634" style="color:#00c6fb;">7735789634</a>
+    </td>
+    <td>Auditorium</td>
+    <td>3:00 PM - 5:30 PM</td>
+  </tr>
+
+  <!-- 🌙 Day 2 Section -->
+  <tr style="background-color: #00c6fb; color: white; text-align: center; font-weight: bold;">
+    <td colspan="4">DAY 2 EVENTS  (25 oct )</td>
+  </tr>
+
+  <tr>
+    <td>Coding Challenge</td>
+    <td>
+      Dr. Dhawaleswar Rao CH. – <a href="tel:7779871797" style="color:#00c6fb;">7779871797</a>, 
+      Mr. Manoj Ku. Padhi – <a href="tel:9861030785" style="color:#00c6fb;">9861030785</a>, 
+      Mr. Rajesh Mishra – <a href="tel:7077864143" style="color:#00c6fb;">7077864143</a>
+    </td>
+    <td>Software Domain Lab + C135</td>
+    <td>9:30 AM - 1:30 PM</td>
+  </tr>
+
+  <tr>
+    <td>UI & UX Competition</td>
+    <td>
+      Mr. Biswaranjan Routray – <a href="tel:9834740512" style="color:#00c6fb;">9834740512</a>, 
+      Mr. Susanta Ku. Nayak – <a href="tel:9420352211" style="color:#00c6fb;">9420352211</a>,
+      Mr. Jagannath Padhy – <a href="tel:8917399363" style="color:#00c6fb;">8917399363</a>, 
+    </td>
+    <td>Seminar Hall</td>
+    <td>9:30 AM - 1:30 PM</td>
+  </tr>
+
+  <tr>
+    <td>Project Expo</td>
+    <td>
+      Dr. Abhishek Das – <a href="tel:7008809932" style="color:#00c6fb;">7008809932</a>, 
+      Mrs. N. Jeevartanam – <a href="tel:8847882452" style="color:#00c6fb;">8847882452</a>, 
+      Dr. Rajib Ku. Majhi – <a href="tel:7609881735" style="color:#00c6fb;">7609881735</a>,
+      Mr. Ashok Kumar Padhy – <a href="tel:8763308403" style="color:#00c6fb;">8763308403</a>,
+      Dr. Abinash Gaya – <a href="tel:7735363537" style="color:#00c6fb;">7735363537</a>, 
+      Dr. Sujit Kumar Mishra – <a href="tel:9861103242" style="color:#00c6fb;">9861103242</a>, 
+    </td>
+    <td>Auditorium</td>
+     <td>9:30 AM - 1:30 PM</td>
+  </tr>
+
+  <tr>
+    <td>Digital Painting</td>
+    <td>
+      Dr. Ribhu Abhusan Panda – <a href="tel:9458353791" style="color:#00c6fb;">9458353791</a>
+    </td>
+    <td>CRC 2 Lab 2&3</td>
+    <td>2:30 PM - 3:30 PM</td>
+  </tr>
+<tr>
+    <td>Prizes distribution</td>
+    <td>
+      Dr. Abhishek Das – <a href="tel:7008809932" style="color:#00c6fb;">7008809932</a>, 
+      Mr. Jagannath Padhy – <a href="tel:8917399363" style="color:#00c6fb;">8917399363</a>, 
+      Mr. Sambhav Barik – <a href="tel:8114643184" style="color:#00c6fb;">8114643184</a>
+    </td>
+    <td>Auditorium</td>
+    <td>3:30 PM - 4:30 PM</td>
+  </tr>
+
+ <tr>
+    <td>Cultural Program</td>
+    <td>
+      Dr. Abhishek Das – <a href="tel:7008809932" style="color:#00c6fb;">7008809932</a>,
+      Dr. Pragyan Parimita Pradhan – <a href="tel:8763834475" style="color:#00c6fb;">8763834475</a>,
+      Dr. Abinash Rath – <a href="tel:8763189799" style="color:#00c6fb;">8763189799</a>,
+      Mr. Susanta Ku. Nayak – <a href="tel:9420352211" style="color:#00c6fb;">9420352211</a>,
+      Mr. B. Bikram Narayan – <a href="tel:9439874577" style="color:#00c6fb;">9439874577</a>,
+      Mr. Victor Pradhan – <a href="tel:9937365635" style="color:#00c6fb;">9937365635</a>,
+    </td>
+    <td>Auditorium</td>
+    <td>4:30 PM - 7:00 PM</td>
+  </tr>
+
+</table>
+
+  </div>
+</div>
+
+<button id="topBtn" onclick="scrollToTop()">⬆</button>
+
+<footer>
+  <p>© 2025 School of Engineering & Technology | Centurion university of technology and management parlakhemundi </p>
+  <p>Made with ❤️ by SoET Team</p>
+</footer>
+
+<script>
+function openForm(url){ window.open(url,'_blank'); }
+function toggleSection(id){ document.getElementById(id).classList.toggle('active'); }
+function scrollToTop(){ window.scrollTo({ top:0, behavior:'smooth' }); }
+
+window.onscroll = function() {
+  document.getElementById("topBtn").style.display = (document.documentElement.scrollTop > 200) ? "block" : "none";
+};
+
+// Countdown Timer
+var countDownDate = new Date("Oct 24, 2025 09:30:00").getTime();
+var countdownEl = document.getElementById("countdown");
+var x = setInterval(function(){
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
+  var days = Math.floor(distance/(1000*60*60*24));
+  var hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+  var minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+  var seconds = Math.floor((distance%(1000*60))/1000);
+  countdownEl.innerHTML = `Event starts in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+  if(distance < 0){ clearInterval(x); countdownEl.innerHTML = "The Event is Live!"; }
+},1000);
+</script>
+</body>
+</html>
